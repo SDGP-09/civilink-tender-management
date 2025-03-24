@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/tender")
-@CrossOrigin(origins = "*")
 public class Tender {
 
     @Autowired
@@ -46,6 +45,7 @@ public class Tender {
     }
 
     @PatchMapping("/update")
+    @PreAuthorize("hasRole('ROLE_GENARAL_USER') or hasRole('ROLE_GROUP_M1')")
     public ResponseEntity<StandardResponse> updateTender(
             @RequestBody RequestCreateTender requestCreateTender,
             @RequestParam String tenderId,
@@ -57,6 +57,7 @@ public class Tender {
     }
 
     @DeleteMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_GENARAL_USER') or hasRole('ROLE_GROUP_M1')")
     public ResponseEntity<StandardResponse> deleteTender(
             @RequestParam String tenderId,
             Authentication authentication
